@@ -12,9 +12,9 @@
       $(window).scroll(function() { // check if scroll event happened
         if ($(document).scrollTop() > 390 ) { // check if user scrolled more than 50 from top of the browser 
           // if yes, then change the color of class "navbar-fixed-top" to white (#f8f8f8)
-$(".headerr").addClass("diminui-menu");
-$(".logo").addClass("diminui-logo");
-$(".head-pricipal").addClass("troca-cor");
+$(".links").addClass("diminui-menu");
+$(".logo-div").addClass("diminui-logo");
+
 
 
 
@@ -24,9 +24,9 @@ $(".head-pricipal").addClass("troca-cor");
         } else {
 
 
-$(".headerr").removeClass("diminui-menu");
-$(".logo").removeClass("diminui-logo");
-$(".head-pricipal").removeClass("troca-cor");
+$(".links").removeClass("diminui-menu");
+$(".logo-div").removeClass("diminui-logo");
+
 
 
         }
@@ -40,9 +40,7 @@ $(".head-pricipal").removeClass("troca-cor");
       $(window).scroll(function() { // check if scroll event happened
         if ($(document).scrollTop() > 390 ) { // check if user scrolled more than 50 from top of the browser 
           // if yes, then change the color of class "navbar-fixed-top" to white (#f8f8f8)
-$(".headerr").addClass("diminui-menu");
-$(".logo").addClass("diminui-logo");
-$(".head-pricipal").addClass("troca-cor");
+$(".logo-div").addClass("muda-div");
 
 
 
@@ -50,11 +48,9 @@ $(".head-pricipal").addClass("troca-cor");
 
 
         } else {
+$(".logo-div").removeClass("muda-div");
 
 
-$(".headerr").removeClass("diminui-menu");
-$(".logo").removeClass("diminui-logo");
-$(".head-pricipal").removeClass("troca-cor");
 
 
         }

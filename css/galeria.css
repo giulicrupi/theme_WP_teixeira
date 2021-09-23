@@ -149,11 +149,11 @@ padding: 0px;
   display: block;
 }
 .slick-next:before{
-  content:url('../svg/arrow-right.png')
+  content:url('../svg/arrow-right-ind.png')
 
 }
 .slick-prev:before{
-  content:url('../svg/arrow-left.png')
+  content:url('../svg/arrow-left-ind.png')
 
 }
 
