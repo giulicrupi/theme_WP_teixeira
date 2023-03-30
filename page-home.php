@@ -1,233 +1,199 @@
 <?php get_header(); ?>
 			
-<main style="margin-top: -2%;">
-	<?php echo do_shortcode('[rev_slider alias="slide"]'); ?>
+<main class="banner">
+	<?php echo do_shortcode('[rev_slider alias="banner"]'); ?>
 </main>
+<?php echo do_shortcode( '[gmw form="1"]' ); ?>
+
+
 <section class="sect1">
-	<div class="container" id="conceito">
+	<div class="container">
 		<div class="row">
-			<div class="col-lg-6 col-12 col-espaco">
-				<hr>
-				<div class="left-col">
-
-					<div class="texto-incial">
-						<h2>
-							DE <br>
-							SI <br>
-							GN
-
-						</h2>
-						<p class="texto-desc">
-							em uma das ruas<br>
-							mais emblemáticas do bairro,<br>
-							a personificação do belo.						
-						</p>					
-					</div>
-				</div> 
-				<hr>
-				<img src="<?php echo site_url(); ?>/wp-content/uploads/2021/09/comando.png" alt="Comando de Produto - Indiana 316" class="comando">			
+			<div class="col-lg-5 text-center">
+				
+				<p class="title">Empreendimentos</p>
+				<div class="traco"></div>
 			</div>
-			<div class="col-lg-6 col-12 col-right">
-				<img src="<?php echo site_url(); ?>/wp-content/uploads/2021/09/predio.png" alt="Prédio - Indiana Indiana 316" class="img-fluid">
+			<div class="col-lg-7 alinhar">
+				<p class="texto">
+					Inovar, ousar, modernizar e mudar no ritmo dos novos tempo, para satisfazer nossos clientes. <b>Para surpreender você!</b>
+				</p>
 			</div>
 		</div>
 	</div>
 </section>
-<section class="sect2" style="background: linear-gradient(to bottom,rgba(0,0,0, 0),rgb(0 0 0 / 73%)),url(<?php echo site_url(); ?>/wp-content/uploads/2021/09/piscina.jpg);">
-	<div class="container" >
-		<div class="textos">
-			<h2>
-				EN <br>
-				CAN <br>
-				TA <br>
-				DOR
-			</h2>
-			<p class="texto-desc">
-			é como se
-			o céu e a água <br>
-			fossem uma
-			coisa só.			
-			</p>			
-		</div>	
-	</div>
+<section class="sect2">
+	<?php get_template_part( 'template-aparts/filtro' ); ?>
+	<div class="container">
+		<div class="row">
+			 <?php     
+
+		        $listagem_home = new WP_Query(array(
+		        'produtos-destaque' => 'aparecer-na-home',
+
+		        
+		        'posts_per_page' => 3)
+		        );
+		                  
+
+		        if($listagem_home->have_posts()) : 
+
+		            while($listagem_home->have_posts()) : $listagem_home->the_post(); ?>			
+						<div class="col-lg-4">
+							<?php get_template_part( 'template-aparts/card' ); ?>
+						</div>
+					<?php endwhile; ?>	
+				<?php endif; ?>	
+		</div>
+	</div>	
 </section>
 <section class="sect3">
 	<div class="container">
+		<p class="title text-center">Imóveis para te surpreender!</p>
 		<div class="row">
-			<div class="col-lg-9 col-12">
-				<!-- <img src="<?php echo site_url(); ?>/wp-content/uploads/2021/09/implantacao.png" alt=" implantacao" class="img-fluid imp"> -->
+			 <?php     
 
-				<div class="galeria-imp">
+		        $listagem_home = new WP_Query(array(
+		        'produtos-destaque' => 'destaque',
 
-						<?php 
-						$imagesImp = get_field('Implantacao');
-						if( $imagesImp ): ?>
-						   
-						        <?php foreach( $imagesImp as $imageImp ): ?>
-								<div class="item">
-									<a href="<?php echo $imageImp['url']; ?>" data-fancybox="" style="text-decoration: none;">
-									<img src="<?php echo $imageImp['url']; ?>" class="img-fluid" alt="<?php echo $imageImp['title']; ?>">
-									</a>
-									<p class="title-imp"><?php echo $imageImp['title']; ?></p>
+		        
+		        'posts_per_page' => 2)
+		        );
+		                  
+
+		        if($listagem_home->have_posts()) : 
+
+		            while($listagem_home->have_posts()) : $listagem_home->the_post(); 
+
+		            	$logo = get_field('logo_do_produto');
+									$images = get_field('galeria_de_imagens'); // get gallery
+									$image  = $images[0]; 	            	
+		            	?>				
+						<div class="col-lg-6">
+							<a href="<?php echo site_url(); ?>/produto/apogeo/">
+								<div class="card-destaque">
+									<div class="conteudo">
+										<div class="img" style="background-image: url(<?php echo $image['url']; ?>);">
+											
+										</div>
+										<div class="linha">
+											<div class="logo" >
+												<div class="logo-img" style="background-image: url(<?php echo $logo['url']; ?>);">
+													
+												</div>
+											</div>
+											<div class="status">
+												<?php 
+
+													$terms = get_the_terms( $post->ID, 'produtos-categoria' );
+													if ( !empty( $terms ) ){
+													    // get the first term
+													    $term = array_shift( $terms );
+													      echo '<p >' . $term->name . '</p>';
+													}
+
+												 ?>	
+											</div>
+										</div>
+									</div>
 								</div>
-
-						                
-						            
-						        <?php endforeach; ?>
-						    
-						<?php endif; ?>	
-
-				
-				</div>
-
-				<div class="texto">
-					<h2>
-						COM <br>
-						PLE <br>
-						TO
-					</h2>
-				</div>
-
-			</div>
-			<div class="col-lg-3 col-12">
-			
-
-				<ul>
-					<li>ACESSO DE VEÍCULOS</li>
-					<li>ACESSO SOCIAL</li>
-					<li>UBER PLACE</li>
-					<li>COWORKING</li>
-					<li>LOBBY</li>
-					<li>PET PLACE</li>
-					<li>LOCKER/DEPÓSITO</li>
-					<li>ESTACIONAMENTO</li>
-					<li>QUADRA DE AREIA RECREATIVA</li>
-				</ul>
-			</div>
+							</a>
+						</div>
+					<?php endwhile; ?>
+				<?php endif; ?>		
 		</div>
 	</div>
 </section>
-<section class="sect4" >
-	<div class="container" id="apto">
+<section class="sect4">
+	<div class="container cont">
+		<p class="title text-center">Teixeira Pinto: construímos obras, <br>
+mas o que concretizamos são sonhos.</p>
+
+	</div>
+	<div class="container cont2">
 		<div class="row">
-			<div class="col-lg-3 col-12" style="    padding-right: 3%;">
-				<div class="texto">
-					<h2>
-						ESPE <br>
-						TÁCU <br>
-						LAR
-					</h2>
-					<p class="text-desc">Seus olhos encontram <br>o horizonte.</p>
+			<div class="col-lg-6 p-0">
+				<div class="img" style="background-image: url(<?php echo site_url(); ?>/wp-content/uploads/2022/09/AdobeStock_305153212.jpg);">
+					
 				</div>
 			</div>
-			<div class="col-lg-9 col-12 c-right">
-
-				<div class="galeria-imp">
-
-						<?php 
-						$imagesApt = get_field('galeria_apto');
-						if( $imagesApt ): ?>
-						   
-						        <?php foreach( $imagesApt as $imageApt ): ?>
-								<div class="item">
-									<a href="<?php echo $imageApt['url']; ?>" data-fancybox="" style="text-decoration: none;">
-									<img src="<?php echo $imageApt['url']; ?>" class="img-fluid" alt="<?php echo $imageApt['title']; ?>">
-									</a>
-									<p class="title-imp"><?php echo $imageApt['title']; ?></p>
-								</div>
-
-						                
-						            
-						        <?php endforeach; ?>
-						    
-						<?php endif; ?>	
-
-				
-				</div>				
+			<div class="col-lg-6 p-0 verde" style="background-image: url(<?php echo site_url(); ?>/wp-content/uploads/2022/09/bg-verde.jpg);">
+				<div class="conteudo">
+					<p class="sub-title-t">Teixeira Pinto: Projetando o mundo que buscamos ter.</p>
+					<p class="title-t">
+						Nosso compromisso é transformar vidas. <b>Construindo ambientes funcionais, acolhedores e confortáveis</b>.
+					</p>
+					<p class="texto">
+						Elaboramos projetos de empreendimentos trabalhando com seriedade e sempre em parceria com nossos clientes, equipe e colaboradores. Sempre construindo o melhor dos mundos para trazer qualidade de vida e superar as expectativas de nossos clientes e colaboradores.
+					</p>
+					<div class="botao">
+						<a href="<?php echo site_url(); ?>/a-empresa/">
+							<button>Conheça nossa história</button>
+						</a>
+					</div>
+				</div>
 			</div>
-		</div>
+		</div>		
 	</div>
 </section>
 <section class="sect5">
-	<div class="container" id="area">
-		<div class="row">
-			<div class="col-lg-3 col-12 col-mob">
-					<h2>
-						ÚNI <br>
-						CO
-					</h2>
-					<p class="text-desc">
-						a primeira impressão <br>
-						será definitiva.
-					</p>
-					<p><small>Arrojado, contemporâneo e completo. <br>
-Essas são as primeiras impressões que o refinado
-Indiana 316 irá proporcionar  aos moradores e visitantes. </small></p>				
-			</div>				
-
-			<div class="col-lg-9  col-12 c-right">
-
-				<div class="galeria-imp">
-
-						<?php 
-						$imageslaz = get_field('galeria_lazer');
-						if( $imageslaz ): ?>
-						   
-						        <?php foreach( $imageslaz as $imagelaz ): ?>
-								<div class="item">
-									<a href="<?php echo $imagelaz['url']; ?>" data-fancybox="" style="text-decoration: none;">
-									<img src="<?php echo $imagelaz['url']; ?>" class="img-fluid" alt="<?php echo $imagelaz['title']; ?>">
-									</a>
-									<p class="title-imp"><?php echo $imagelaz['title']; ?></p>
-								</div>
-
-						                
-						            
-						        <?php endforeach; ?>
-						    
-						<?php endif; ?>	
-
-				
-				</div>				
-			</div>
-			<div class="col-lg-3 col-12 col-desk">
-					<h2>
-						ÚNI <br>
-						CO
-					</h2>
-					<p class="text-desc">
-						a primeira impressão <br>
-						será definitiva.
-					</p>
-					<p><small>Arrojado, contemporâneo e completo. <br>
-Essas são as primeiras impressões que o refinado
-Indiana 316 irá proporcionar  aos moradores e visitantes. </small></p>				
-			</div>			
-		</div>					
-	</div>
-</section>
-<section class="sect6" id="local">
-	<div class="container-fluid">
-		<img src="<?php echo site_url(); ?>/wp-content/uploads/2021/09/local.jpg" alt="localização - Indiana 316" class="img-fluid py-2" >
-		<div class="texto text-center" style="padding-bottom: 2%;padding-top: 2%;">
-			<h4 style="text-transform: uppercase;letter-spacing: 1px;">Endereço:</h4>
-			<p>RUA  INDIANA, 316 - BROOKLIN</p>			
-		</div>
-	</div>
-</section>									
-<section class="contato" id="contato">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-6 col-12">
-				<p>Cadastre-se para saber mais:</p>
-				<div class="form">
-					<?php echo do_shortcode('[contact-form-7 id="46" title="Formulário de contato 1"]'); ?>
-				</div>				
+			<div class="col-lg-4">
+				<div class="card-topico" style="background-image: url(<?php echo site_url(); ?>/wp-content/uploads/2022/09/AdobeStock_303174053.jpg);">
+					<div class="overlay">
+						<div class="desc">
+							<p class="title-card">Desenvolvimento <br> <b>Imobiliário</b></p>
+							<div class="botao">
+								<a href="<?php echo site_url(); ?>/a-empresa/#imobiliario">
+									<button>Saiba mais</button>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="col-lg-6 col-12">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3655.763555802346!2d-46.68382158502126!3d-23.61281128465744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce50ba9742d1eb%3A0xe63e6c15c0bbf685!2sR.%20Indiana%2C%20316%20-%20Brooklin%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2004562-000!5e0!3m2!1spt-BR!2sbr!4v1632403170522!5m2!1spt-BR!2sbr" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+			<div class="col-lg-4">
+				<div class="card-topico" style="background-image: url(<?php echo site_url(); ?>/wp-content/uploads/2022/09/fachada_desenvolvimento-comercial.jpeg);">
+					<div class="overlay">
+						<div class="desc">
+							<p class="title-card">Desenvolvimento <br> <b>SETOR COMERCIAL</b></p>
+							<div class="botao">
+								<a href="<?php echo site_url(); ?>/a-empresa/#comercial">
+									<button>Saiba mais</button>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
+			<div class="col-lg-4">
+				<div class="card-topico" style="background-image: url(<?php echo site_url(); ?>/wp-content/uploads/2022/09/AdobeStock_332750645.jpg);">
+					<div class="overlay">
+						<div class="desc">
+							<p class="title-card">Desenvolvimento <br> <b>SETOR INDUSTRIAL</b></p>
+							<div class="botao">
+								<a href="<?php echo site_url(); ?>/a-empresa/#industrial">
+									<button>Saiba mais</button>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>						
 		</div>
 	</div>
 </section>
 <?php get_footer(); ?>
+
+
+
+
+
+
+
+
+
+
+
+
